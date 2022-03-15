@@ -43,7 +43,7 @@ Tapestry는 문서를 구체적인 쿼리로 필터링함. 따라서 이러한 �
 그래서 쿼리를 위해 독자적인 TQL 언어가 고안됨
 
 ### Basic Examples
-TQL 쿼리는 1차 술어 논리랑 비슷하지만 sets을 지원한다는 점에서 다름. 가장 간단한 쿼리는 =나 <와 같은 기본 연산을 사용하는 것. m.to = {'Joe', LIKE '%Bi11%'} 와 같은 쿼리(=m.to 라는 field에 Joe가 들어가거나 Bill이 포함되는 문서)가 가능하며 EXISTS (ml: ml.sender = 'Joe' AND ml.in-reply-to = {m}) 와 같은 협업 쿼리(=Joe가 답변한 모든 문서 m)가 가능. 또, 다른 유저의 필터도 사용할 수 있음. m IN Terry.Baseball AND re.words = {'Dodgers'}. 테리의 베이스볼 쿼리에 포함되면서 m.words가 Dodgers인 문서
+TQL 쿼리는 1차 술어 논리랑 비슷하지만 sets을 지원한다는 점에서 다름. 가장 간단한 쿼리는 =나 <와 같은 기본 연산을 사용하는 것. `m.to = {'Joe', LIKE '%Bi11%'}` 와 같은 쿼리(=m.to 라는 field에 Joe가 들어가거나 Bill이 포함되는 문서)가 가능하며 `EXISTS (ml: ml.sender = 'Joe' AND ml.in-reply-to = {m})` 와 같은 협업 쿼리(=Joe가 답변한 모든 문서 m)가 가능. 또, 다른 유저의 필터도 사용할 수 있음. `m IN Terry.Baseball AND re.words = {'Dodgers'}`. 테리의 베이스볼 쿼리에 포함되면서 m.words가 Dodgers인 문서
 
 ### Annotations
 지금까지 설명한 TQL은 한번에 결정되는 것이 아니고 전자 문서의 형태를 가진 쿼리 언어를 통해 결정. 그래서 anno를 다루는 것이 직관적이지 않을 수 있음.  이전 섹션에서 말한 것처럼 anno는 doc 데이터와 같이 저장되지 않음. 그렇지만 이것이 별개의 필드로 저장되는 느낌은 아님. 오히려 우선순위 같은 anno를 매우 자연스럽게 표현하는 구조. 예를 들어서 'm.a.priority' 라는 건 doc의 우선순위에 접근하기 위함이며 이 때 a는 annotation의 또다른 네이밍임. 비슷하게 폴더에 접근할 때도 'm.a.folders'로 접근할 수 있음.
