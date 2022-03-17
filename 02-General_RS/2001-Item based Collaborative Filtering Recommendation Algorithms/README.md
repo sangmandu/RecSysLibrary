@@ -1,3 +1,7 @@
+## Writing History
+* 220316 : 0, 1
+* 220317 : 2 
+
 ## ABSTRACT
 
 추천 시장이 개인화 추천을 하게되었고 특히 K-NN 협업 필터링은 큰 성공을 이룸. 정보의 양과 유저의 수가 증가하면서 거대하게 성장해오는 시장에서 몇 가지 개선점이 대두되었음. 고품질의 추천을 하는 것. 그리고 매초마다 수백만명의 유저와 아이템을 가지고 많은 추천을 하는 것. 그리고 data sparsity가 있더라도 잘 처리할 수 있는 것. 이를 위해 item-based c.f를 연구함. 이는 우선 user-item 행렬을 분석하고 설 다른 아이템 간의 관계를 파악함. 그리고 이 관계를 가지고 간접적으로 유저에게 추천할 수 있도록 함.
@@ -41,10 +45,29 @@ Horting은 그래프 기반 기술이며 노드는 유저, 간선은 유사도�
 
 ## 2. COLLABORATIVE FILTERING BASED RECOMMENDER SYSTEMS
 
+### 2.0.1 Overview of the Collaborative Filtering Process
+m명의 유저 U = {u1, ... , um}과 n개의 아이템 I = {i1, ... , in}이 있다. 그리고 유저가 특정 아이템에게 표현한 피드백이 있을 때 해당 아이템들을 I_u 라고 한다. 이 때 예측 P 또는 추천 I_r 를 해줄 대상 유저를 u_a 라고 하자.
 
+예측 P는 u_a의 선호도를 예상하는 일인데, 이 때 선호도를 예상하는 아이템들은 u_a가 기존에 피드백한 아이템 목록 I_(u_a) 에 속해있지 않은 아이템들임
 
+추천 I_r은 유저가 좋아할 것 같은 아이템 목록인데, 이 때 이 아이템들은 유저가 기존에 피드백한 아이템 목록 I_(u_a)에 속해있지 않는 아이템들임. 이러한 알고리즘은 Top-N 추천으로 불림
 
+C.F는 두 가지 방식으로 연구되어왔음. Memory-based(u.b)와 Model-based(i.b)임. 
 
+#### Memory-based Collaborative Filtering Algorithms
+취향이 같은 이웃들이 형성되면 여러 알고리즘을 써서 이웃들의 선호도를 종합하고 active user에게 N개의 상위 추천이나 예측을 제공하는 방법. nearest-neighbor 또는 user-based collaborative filtering로 불리며 매우 유명하고 실전에서 폭넓게 쓰임
+
+#### Model-based Collaborative Filtering Algorithms
+아이템에 대한 유저들의 피드백을 가지고 아직 평가되지 않은 피드백을 예상하는 방법. 이 때 Bayesian network, clustering, rule-based와 같은 머신러닝 기법이이 쓰임. 특히 베이시안 네트워크는 확률적인 접근방식이며 clustering은 분류 문제를 해결하는 방식을 채택. 규칙기반 방식은 아이템간의 연관성을 파악해서 추천 패턴을 만드는 것.
+
+### 2.0.2 Challenges of User-based Collaborative Filtering Algorithms
+u.i 방식은 과거에는 좋았지만, 서서히 문제점들이 드러남.
+* Sparsity : 아무리 구매를 많이한 유저라도 전체 아이템의 1% 이하를 구매했을 것임. (전체 아이템이 2백만개일 때 1%는 2만개임) 그래서 NN 알고리즘이 특정 유저에게 아이템 추천을 하기에는 정확도가 매우 떨어짐
+* Scalability : 유저와 아이템의 수가 늘어남에 따라 계산량이 증가하는 문제.
+
+이러한 NN의 약점 때문에 새로운 알고리즘을 찾게됨. Sparse rating matrix를 Dense하게 바꿔보려 했지만 sparse-rating users과의 관계성을 찾는 근본적인 문제에 대해서는 해결하지 못함. 여기서는 특히, Scalability를 해결하려고 했는데, 적절한 방법이 Model-based approach 였음. 아이템간 연관성을 비교해 유사한 아이템을 추천해주는 바로 그 방법. 이 방법은 비슷한 유저를 찾을 필요가 없음. 그래서, 확률론적인 방법부터 훨씬 전통적인 상관관계까지 아이템간 연관성을 계산하는 방법들이 제안되었고 이에 대한 자세하 내용을 다음 섹션에서 설명하겠음.
+
+## 3 ITEM-BASED COLLABORATIVE FILTERING ALGORITHM
 
 
 
